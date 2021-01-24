@@ -11,6 +11,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Controllers\Driver\DriverController;
 use App\Http\Controllers\Driver\DriverProfileController;
 use App\Http\Controllers\Passanger\PassangerController;
+use App\Http\Controllers\Passanger\PassengerProfileController;
 use App\Http\Controllers\Super\SuperAdminProfileController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
@@ -24,7 +25,7 @@ use Illuminate\Auth\Middleware\EnsureEmailIsVerified;
 
     Auth::routes();
     Route::get('logout', [LoginController::class, 'logout'])->name('logout');
-    // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
  
     Route::group(['as'=>'SuperAdmin.','prefix'=>'SuperAdmin', 'middleware'=>['auth','super']], function(){
         Route::get('SuperAdminDashboard',[SuperAdminController::class,'super'])->middleware('verified')->name('SuperAdminDashboard');
@@ -41,14 +42,15 @@ use Illuminate\Auth\Middleware\EnsureEmailIsVerified;
         Route::resource('profile',CarServiceProfileController::class);
     });
 
-    Route::group(['as'=>'Driver.','prefix' => 'Driver' , 'namespace'=> 'Driver' ,'middleware' => ['auth','driver']], function() {
+    Route::group(['as'=>'Driver.','prefix' => 'Driver' ,'middleware' => ['auth','driver']], function() {
         Route::get('DriverDashboard' ,[DriverController::class, 'driver'])->middleware('verified')->name('DriverDashboard'); 
-        Route::get('profile',DriverProfileController::class);
+        Route::resource('profile',DriverProfileController::class);
     });
 
 
-    Route::group(['as' =>'Passenger.' ,'prifix' => 'Passenger','namespace' => 'Passenger' ,'middleware' => ['auth','passenger']] ,function(){
+    Route::group(['as' =>'Passenger.' ,'prifix' => 'Passenger','middleware' => ['auth','passenger']] ,function(){
         Route::get('PassengerDashboard', [PassangerController::class,'passenger'])->middleware('verified')->name('PassengerDashboard');
+        Route::resource('profile',PassengerProfileController::class);
     });
 
     Route::get('/forgot-password', function(){
