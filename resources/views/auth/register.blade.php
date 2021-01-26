@@ -18,6 +18,7 @@
     <link rel="stylesheet" href="../assets/css/argon.css?v=1.2.0" type="text/css">
     <link rel="stylesheet" href="../css/intlTelInput.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" >
+
 </head>   
 <body class="bg-default">
     <!-- Navbar -->
@@ -159,7 +160,7 @@
                                     </span>
                                 @enderror
                                     <div class="input-group input-group-merge input-group-alternative mb-3">
-                                        <span class="input-group-text"><i class="ni ni-phone-83"></i></span>
+                                        <span class="input-group-text"><i class="ni ni-email-83"></i></span>
                                                 <input class="form-control" type="tel" name="phone" placeholder="phone" value="">
                                     </div>
                                 </div>

@@ -441,7 +441,7 @@
                                 </div>
                                 <div class="col-4 text-right">
                                     <span>
-                                        <a href="{{ route('SuperAdmin.profile.edit', Auth::user()->id) }}" class="btn btn-info">Edit Profile</a>
+                                        <a href="{{ Route('SuperAdmin.profile.edit', Auth::user()->id) }}" class="btn btn-info">Edit Profile</a>
                                     </span>                                
                             </div>
                         </div>
@@ -451,11 +451,11 @@
                             <div class="alert alert-danger">{{ Request::old('error') }}</div>
                         @endif
                         <div class="card-body">
-                            <form method="POST" enctype="multipart/form-data" action="{{ Route::is('SuperAdmin.profile.edit') ? Route('SuperAdmin.profile.update') : Route('SuperAdmin.profile.index')}}">
-                                @if(Route::is('profile.edit'))
+                            <form method="POST" enctype="multipart/form-data" action="{{ Route::is('SuperAdmin.profile.edit') ? Route('SuperAdmin.profile.update',$SuperEdit->id) : Route('SuperAdmin.profile.index')}}">
+                                @csrf()
+                                @if(Route::is('SuperAdmin.profile.edit'))
                                     @method('PUT')                                    
                                 @endif
-                                @csrf()
                                 <h6 class="heading-small text-muted mb-4">User information</h6>
                                 <div class="pl-lg-4">
                                     <div class="row">
@@ -536,10 +536,10 @@
                                         <label class="form-control-label">About Me</label>
                                         <textarea rows="4" class="form-control" name="about" placeholder="">{{ Auth::user()->about}}</textarea>
                                     </div>
-                                   <span>
+                                </div><input type="submit" class="btn btn-sm btn-primary" value="update">
+                                   {{-- <span>
                                        <a type="submit" href="{{ route('SuperAdmin.profile.update', Auth::user()->id) }}" class="btn btn-info">Update</a>
-                                       
-                                   </span>
+                                   </span> --}}
                                 </div></div>
                             </form>
                         </div>

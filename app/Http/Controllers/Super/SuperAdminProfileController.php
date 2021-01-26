@@ -41,7 +41,7 @@ class SuperAdminProfileController extends Controller
     public function store(Request $request)
     {
         $SuperStore  = new User;
-
+                // dd($SuperStore);
         
         if ($request->hasfile('image')) {
             $file = $request->file('image');
@@ -63,6 +63,7 @@ class SuperAdminProfileController extends Controller
         $SuperStore->country =$request->country;
         $SuperStore->postalcode =$request->postalcode;
         $SuperStore->about =$request->about;
+        dd($SuperStore);
         try{
             $SuperStore->save();
             return \Redirect::back()->withInput(['success' => 'profile updated!']);
@@ -96,9 +97,10 @@ class SuperAdminProfileController extends Controller
             
         $Super = User::get();
         // dd($Super);
-        // return view('SuperAdmin.profile',compact('SuperEdit','Super'));
+        return view('SuperAdmin.profile',compact('SuperEdit','Super'));
         // return 'super profile';
-        return view('SuperAdmin.profile');
+        // return view('SuperAdmin.profile');
+        // return view('SuperAdmin.profile');
     
     }
 
@@ -118,10 +120,11 @@ class SuperAdminProfileController extends Controller
             'image'    => $request['image'],
             'password' => $request['password'],
             'address'  => $request['address'],
+            'country'  => $request['country'],
             'city'     => $request['country'],
             'postalcode' => $request['postalcode'],
         ]);
-        return redirect('SuperAdmin.profile')->with('success','your profile has been updates!!');
+        return redirect::back()->with('success','your profile has been updates!!');
     }
 
     /**

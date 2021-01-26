@@ -68,13 +68,13 @@ class RegisterController extends Controller
     {
     //    dd($data);
         return Validator::make($data, [
-            'name' => ['required','regex:/^[a-zA-Z]+$/u','max:255','alpha_spaces'],
+            'name' => ['required','regex:/^[a-zA-Z]+$/u','max:255','alpha'],
             'role_id' => ['required'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'phone' => ['required','max:10'],
             'image' => ['nullable'],
             'about' => ['nullable'],
-            'password' => 'required|string|min:6|confirmed|regex:/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{6,}$/',
+            'password' => 'required|string|confirmed|regex:/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{6,}$/',
             
         ]);
     }
