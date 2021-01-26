@@ -53,9 +53,9 @@ class SuperAdminProfileController extends Controller
             return $request;
             $SuperStore->image = '';
         }
+        $SuperStore->email =$request->email;
 
         $SuperStore->name =$request->name;
-        $SuperStore->email =$request->email;
         $SuperStore->phone =$request->phone;
         $SuperStore->password =$request->password;
         $SuperStore->address =$request->address;
@@ -123,6 +123,7 @@ class SuperAdminProfileController extends Controller
             'country'  => $request['country'],
             'city'     => $request['country'],
             'postalcode' => $request['postalcode'],
+            'about'     => $request['about'],
         ]);
         return redirect::back()->with('success','your profile has been updates!!');
     }

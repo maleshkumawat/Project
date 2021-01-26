@@ -18,6 +18,15 @@
     <link rel="stylesheet" href="../assets/css/argon.css?v=1.2.0" type="text/css">
     <link rel="stylesheet" href="../css/intlTelInput.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" >
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"
+        integrity="sha512-DNeDhsl+FWnx5B1EQzsayHMyP6Xl/Mg+vcnFPXGNjUZrW28hQaa1+A4qL9M+AiOMmkAhKAWYHh1a+t6qxthzUw=="
+        crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.min.css"
+        integrity="sha512-yye/u0ehQsrVrfSd6biT17t39Rg9kNc+vENcCXZuMz2a+LWFGvXUnYuWUW6pbfYj1jcBb/C39UZw2ciQvwDDvg=="
+        crossorigin="anonymous" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js"
+        integrity="sha512-BNZ1x39RMH+UYylOW419beaGO0wqdSkO7pi1rYDYco9OL3uvXaC/GTqA5O4CVK2j4K9ZkoDNSSHVkEQKkgwdiw=="
+        crossorigin="anonymous"></script>
 
 </head>   
 <body class="bg-default">
@@ -160,22 +169,10 @@
                                     </span>
                                 @enderror
                                     <div class="input-group input-group-merge input-group-alternative mb-3">
-                                        <span class="input-group-text"><i class="ni ni-email-83"></i></span>
-                                                <input class="form-control" type="tel" name="phone" placeholder="phone" value="">
+                                                <input class="form-control only-numeric inptFielsd" id="phone" type="text" name="phone" placeholder="phone" value="" >
+                                                <span class="error" style="color: red; display: none">* Input digits (0 - 9)</span>
                                     </div>
                                 </div>
-                                {{-- <div class="form-group">
-                                    <div class="input-group input-group-merge input-group-alternative mb-3">
-                                        <span class="input-group-text"><i class="fas fa-image"></i></span>
-                                                <input class="form-control" type="file" name="image" placeholder="image" value="">
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="input-group input-group-merge input-group-alternative mb-3">
-                                        <span class="input-group-text"><i class="fas fa-address-card"></i></span>
-                                                <input class="form-control" type="text" name="about" placeholder="about" value="">
-                                    </div>
-                                </div> --}}
                                 <div class="form-group">
                                     @error('password')
                                     <span class="invalid-feedback-form" role="alert">
@@ -251,12 +248,29 @@
     <script src="../assets/vendor/jquery.scrollbar/jquery.scrollbar.min.js"></script>
     <script src="../assets/vendor/jquery-scroll-lock/dist/jquery-scrollLock.min.js"></script>
     <!-- Argon JS -->
-    <script src="../assets/js/argon.js?v=1.2.0"></script>
-    <script src="../build/js/intlTelInput.js"></script>
+   <script type="text/javascript">
+        $(document).ready(function() {
+          $(".only-numeric").bind("keypress", function (e) {
+              var keyCode = e.which ? e.which : e.keyCode
+              if (!(keyCode >= 48 && keyCode <= 57)) {
+                $(".error").css("display", "inline");
+                return false;
+              }else{
+                $(".error").css("display", "none");
+              }
+          });
+        });
+    </script>
     <script>
-        var input = document.querySelector('#phone');
-        var iti = window.intlTelInput(input,{
-            utilsScript: 'js/utils.js'
+        var input = document.querySelector("#phone");
+        window.intlTelInput(input, {
+            separateDialCode: true,
+            customPlaceholder: function (
+                selectedCountryPlaceholder,
+                selectedCountryData
+            ) {
+                return "e.g. " + selectedCountryPlaceholder;
+            },
         });
     </script>
 </body>

@@ -53,7 +53,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ url('SuperAdmin/profile') }}">
+                            <a class="nav-link" href="{{ url('Admin/profile') }}">
                                 <i class="ni ni-single-02 text-yellow"></i>
                                 <span class="nav-link-text">Profile</span>
                             </a>
@@ -337,7 +337,7 @@
                                 <div class="dropdown-header noti-title">
                                     <h6 class="text-overflow m-0">Welcome!</h6>
                                 </div>
-                                <a href="{{ url('profile') }}" class="dropdown-item">
+                                <a href="{{ url('Admin/profile') }}" class="dropdown-item">
                                     <i class="ni ni-single-02"></i>
                                     <span>My profile</span>
                                 </a>
@@ -366,17 +366,12 @@
         </nav>
         <!-- Header -->
         <!-- Header -->
-        <div class="header pb-6 d-flex align-items-center" style="min-height: 500px; background-image: url(../assets/img/theme/profile-cover.jpg); background-size: cover; background-position: center top;">
+        <div class="header pb-6 d-flex align-items-center" >
             <!-- Mask -->
-            <span class="mask bg-gradient-default opacity-8"></span>
+            <span class="mask bg-gradient-default"></span>
             <!-- Header container -->
             <div class="container-fluid d-flex align-items-center">
                 <div class="row">
-                    <div class="col-lg-7 col-md-10">
-                        <h1 class="display-2 text-white">Hello Admin {{Auth::user()->name}}</h1>
-                        <p class="text-white mt-0 mb-5">This is your profile page. You can see the progress you've made with your work and manage your projects or assigned tasks</p>
-                        <a href="#!" class="btn btn-neutral">Edit profile</a>
-                    </div>
                 </div>
             </div>
         </div>
@@ -445,8 +440,9 @@
                                     <h3 class="mb-0">Edit profile </h3>
                                 </div>
                                 <div class="col-4 text-right">
-                                    <a href="#!" class="btn btn-sm btn-primary">Settings</a>
-                                </div>
+                                    <span>
+                                        <a href="{{ Route('Admin.profile.edit', Auth::user()->id) }}" class="btn btn-info">Edit Profile</a>
+                                    </span>                                
                             </div>
                         </div>
                         @if(\Request::old('success'))
@@ -455,11 +451,11 @@
                             <div class="alert alert-danger">{{ Request::old('error') }}</div>
                         @endif
                         <div class="card-body">
-                            <form method="POST" enctype="multipart/form-data" action="">
-                                @if(Route::is('profile.edit'))
+                            <form method="POST" enctype="multipart/form-data" action="{{ Route::is('Admin.profile.edit') ? Route('Admin.profile.update',$AdminEdit->id) : Route('Admin.profile.index')}}">
+                                @csrf()
+                                @if(Route::is('Admin.profile.edit'))
                                     @method('PUT')                                    
                                 @endif
-                                @csrf()
                                 <h6 class="heading-small text-muted mb-4">User information</h6>
                                 <div class="pl-lg-4">
                                     <div class="row">
@@ -487,7 +483,7 @@
                                         <div class="col-lg-6">
                                             <div class="form-group">
                                                 <label class="form-control-label" for="input-last-name">Image</label>
-                                                <input type="file" id="input-last-name" class="form-control" name="phone" placeholder="" value="{{ Auth::user()->image }}">
+                                                <input type="file" id="input-last-name" class="form-control" name="image" placeholder="" value="{{ Auth::user()->image }}">
                                             </div>
                                         </div>
                                         <div class="col-lg-6">
@@ -521,13 +517,13 @@
                                         <div class="col-lg-4">
                                             <div class="form-group">
                                                 <label class="form-control-label" for="input-country">Country</label>
-                                                <input type="text" id="input-country" class="form-control"  value="{{ Auth::user()->country}}">
+                                                <input type="text" id="input-country" name="country" class="form-control"  value="{{ Auth::user()->country}}">
                                             </div>
                                         </div>
                                         <div class="col-lg-4">
                                             <div class="form-group">
                                                 <label class="form-control-label" for="input-country">Postal code</label>
-                                                <input type="number" id="input-postal-code" class="form-control"  value="{{ Auth::user()->postalcode}}">
+                                                <input type="number" id="input-postal-code" name="postalcode" class="form-control"  value="{{ Auth::user()->postalcode}}">
                                             </div>
                                         </div>
                                     </div>
@@ -538,12 +534,13 @@
                                 <div class="pl-lg-4">
                                     <div class="form-group">
                                         <label class="form-control-label">About Me</label>
-                                        <textarea rows="4" class="form-control" name="" placeholder="">{{ Auth::user()->about}}</textarea>
+                                        <textarea rows="4" class="form-control" name="about" placeholder="">{{ Auth::user()->about}}</textarea>
                                     </div>
-                                   <span>
-                                       <a href="{{ route('Admin.profile.edit', Auth::user()->id) }}" class="btn btn-info">edit</a>
-                                   </span>
-                                </div>
+                                </div><input type="submit" class="btn btn-sm btn-primary" value="update">
+                                   {{-- <span>
+                                       <a type="submit" href="{{ route('Admin.profile.update', Auth::user()->id) }}" class="btn btn-info">Update</a>
+                                   </span> --}}
+                                </div></div>
                             </form>
                         </div>
                     </div>
