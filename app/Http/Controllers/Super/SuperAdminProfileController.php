@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Super;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 
 class SuperAdminProfileController extends Controller
 {
@@ -18,6 +19,7 @@ class SuperAdminProfileController extends Controller
         $Super = User::get();
         // dd($Super);
         return view('SuperAdmin.profile',compact('Super'));
+        // return 'malesh';
     }
 
     /**
@@ -38,7 +40,35 @@ class SuperAdminProfileController extends Controller
      */
     public function store(Request $request)
     {
+        $SuperStore  = new User;
+
         
+        if ($request->hasfile('image')) {
+            $file = $request->file('image');
+            $extension = $file->getClientOriginalExtension();
+            $filename = time() . '.' . $extension;
+            $file->move('uploads/slider/', $filename);
+            $SuperStore->image = $filename;
+        } else {
+            return $request;
+            $SuperStore->image = '';
+        }
+
+        $SuperStore->name =$request->name;
+        $SuperStore->email =$request->email;
+        $SuperStore->phone =$request->phone;
+        $SuperStore->password =$request->password;
+        $SuperStore->address =$request->address;
+        $SuperStore->city =$request->city;
+        $SuperStore->country =$request->country;
+        $SuperStore->postalcode =$request->postalcode;
+        $SuperStore->about =$request->about;
+        try{
+            $SuperStore->save();
+            return \Redirect::back()->withInput(['success' => 'profile updated!']);
+        }catch(\Throwable $th){
+            return \Redirect::back()->withInput(['error' => $th->getMessage()]);
+        }
     }
 
     /**
@@ -82,11 +112,16 @@ class SuperAdminProfileController extends Controller
     public function update(Request $request, $id)
     {
         User::where('id',$id)->update([
-            'name' => $request['name'],
-            'email' => $request['email'],
-            'phone' => $request['phone'],
-            ''
+            'name'     => $request['name'],
+            'email'    => $request['email'],
+            'phone'    => $request['phone'],
+            'image'    => $request['image'],
+            'password' => $request['password'],
+            'address'  => $request['address'],
+            'city'     => $request['country'],
+            'postalcode' => $request['postalcode'],
         ]);
+        return redirect('SuperAdmin.profile')->with('success','your profile has been updates!!');
     }
 
     /**

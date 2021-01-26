@@ -30,6 +30,7 @@ use Illuminate\Auth\Middleware\EnsureEmailIsVerified;
     Route::group(['as'=>'SuperAdmin.','prefix'=>'SuperAdmin', 'middleware'=>['auth','super']], function(){
         Route::get('SuperAdminDashboard',[SuperAdminController::class,'super'])->middleware('verified')->name('SuperAdminDashboard');
         Route::resource('profile', SuperAdminProfileController::class);
+        // Route::post('delete/{id}',SuperAdminProfileController::class);
     });
 
     Route::group(['as'=>'Admin.','prefix' => 'Admin','middleware'=>['auth','admin']], function () {
