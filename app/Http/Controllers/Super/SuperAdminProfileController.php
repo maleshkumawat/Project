@@ -27,7 +27,7 @@ class SuperAdminProfileController extends Controller
      */
     public function create()
     {
-        //
+        return view('SuperAdmin.profile');
     }
 
     /**
@@ -38,7 +38,7 @@ class SuperAdminProfileController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        
     }
 
     /**
@@ -61,11 +61,14 @@ class SuperAdminProfileController extends Controller
     public function edit($id)
     {
         $SuperEdit = User::find($id);
-
+        // dd($SuperEdit);
         if ($SuperEdit) 
             
         $Super = User::get();
-        return view('SuperAdmin.profile',compact('SuperEdit','Super'));
+        // dd($Super);
+        // return view('SuperAdmin.profile',compact('SuperEdit','Super'));
+        // return 'super profile';
+        return view('SuperAdmin.profile');
     
     }
 
@@ -78,7 +81,12 @@ class SuperAdminProfileController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        User::where('id',$id)->update([
+            'name' => $request['name'],
+            'email' => $request['email'],
+            'phone' => $request['phone'],
+            ''
+        ]);
     }
 
     /**

@@ -23,7 +23,7 @@
     <!-- Navbar -->
     <nav id="navbar-main" class="navbar navbar-horizontal navbar-transparent navbar-main navbar-expand-lg navbar-light">
         <div class="container">
-            <a class="navbar-brand" href="{{ url('newdash')}}">Lemo Cab Booking
+            <a class="navbar-brand" href="{{ url('/')}}">Lemo Cab Booking
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-collapse" aria-controls="navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -46,7 +46,7 @@
                 </div>
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item">
-                        <a href="dashboard.html" class="nav-link">
+                        <a href="{{ url('/') }}" class="nav-link">
                             <span class="nav-link-inner--text">Dashboard</span>
                         </a>
                     </li>
@@ -109,28 +109,28 @@
                              <form  method="POST"  action="{{ route('register') }}" enctype="multipart/form-data">
                                 @csrf
                                 <div class="form-group" >
+                                    @error('name')
+                                    <span class="invalid-feedback-form" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
                                     <div class="input-group input-group-merge input-group-alternative mb-3">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text"><i class="ni ni-hat-3"></i></span>
                                         </div>
-                                        @error('name')
-                                        <span class="invalid-feedback-form" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
                                         <input class="form-control" name="name" placeholder="Name" type="text">
                                     </div>
                                 </div>
                                 <div class="form-group" >
+                                    @error('role_id')
+                                    <span class="invalid-feedback-form" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
                                     <div class="input-group input-group-merge input-group-alternative mb-3">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text"><i class="fas fa-user"></i></span>
                                         </div>
-                                        @error('role_id')
-                                        <span class="invalid-feedback-form" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
                                             <select class="form-control" name="role_id">
                                             <option value="">---select your role---</option>
                                             @foreach($user  as $users)
@@ -140,26 +140,26 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
+                                    @error('email')
+                                    <span class="invalid-feedback-form" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
                                     <div class="input-group input-group-merge input-group-alternative mb-3">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text"><i class="ni ni-email-83"></i></span>
                                         </div>
-                                        @error('email')
-                                        <span class="invalid-feedback-form" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
                                         <input class="form-control" name="email" placeholder="Email" type="email">
                                     </div>  
                                 </div>
                                 <div class="form-group">
+                                    @error('phone')
+                                    <span class="invalid-feedback-form" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
                                     <div class="input-group input-group-merge input-group-alternative mb-3">
                                         <span class="input-group-text"><i class="ni ni-phone-83"></i></span>
-                                        @error('phone')
-                                        <span class="invalid-feedback-form" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
                                                 <input class="form-control" type="tel" name="phone" placeholder="phone" value="">
                                     </div>
                                 </div>
@@ -176,28 +176,29 @@
                                     </div>
                                 </div> --}}
                                 <div class="form-group">
+                                    @error('password')
+                                    <span class="invalid-feedback-form" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
                                     <div class="input-group input-group-merge input-group-alternative">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
                                         </div>
-                                        @error('password')
-                                        <span class="invalid-feedback-form" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                        <input class="form-control" name="password" placeholder="Password" type="password">
+                                        <input class="form-control {{$errors->has('password') ? 'is-invalid' : ''}}" name="password" placeholder="Password" type="password">
+                                        <p class="text-muted" >your password must be more than 8 charactors long, should contain at-teast 1 Uppercase , 1 Lowercase,1 numeric and 1 special charactor.</p>
                                     </div>
                                 </div>
                                 <div class="form-group">
+                                    @error('password_confirmation')
+                                    <span class="invalid-feedback-form" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
                                     <div class="input-group input-group-merge input-group-alternative">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
                                         </div>
-                                        @error('password_confirmation')
-                                        <span class="invalid-feedback-form" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
                                         <input class="form-control" name="password_confirmation" placeholder="confirm Password" type="password">
                                     </div>
                                 </div>
