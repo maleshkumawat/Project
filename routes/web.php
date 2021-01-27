@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Auth\Middleware\EnsureEmailIsVerified;
+use App\Http\Controllers\GoogleController;
 
 
     Route::get('/', function () {
@@ -72,5 +73,6 @@ use Illuminate\Auth\Middleware\EnsureEmailIsVerified;
         return back()->with('messege','verification link send!!');
         })->middleware(['auth','throttle:6,1'])->name('verification.resend');
 
-        
+        Route::get('auth/google', [GoogleController::class, 'redirectToGoogle']);
+        Route::get('auth/google/callback', [GoogleController::class, 'handleGoogleCallback']);
     

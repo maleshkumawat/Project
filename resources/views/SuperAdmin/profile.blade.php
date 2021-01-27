@@ -536,9 +536,6 @@
                                         <textarea rows="4" class="form-control" name="about" placeholder="">{{ Auth::user()->about}}</textarea>
                                     </div>
                                 </div><input type="submit" class="btn btn-sm btn-primary" value="update">
-                                   {{-- <span>
-                                       <a type="submit" href="{{ route('SuperAdmin.profile.update', Auth::user()->id) }}" class="btn btn-info">Update</a>
-                                   </span> --}}
                                 </div></div>
                             </form>
                         </div>

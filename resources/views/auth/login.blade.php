@@ -95,10 +95,13 @@
                                     <span class="btn-inner--icon" style="font-size: 16px;"><i class="fab fa-facebook-square"></i></span>
                                     <span class="btn-inner--text">Facebook</span>
                                 </a>
-                                <a href="#" class="btn btn-neutral btn-icon">
+                                <a href="{{ url('auth/google') }}" class="btn btn-neutral btn-icon">
                                     <span class="btn-inner--icon"><img src="../assets/img/icons/common/google.svg"></span>
                                     <span class="btn-inner--text">Google</span>
                                 </a>
+                                {{-- <a href="{{ url('auth/google') }}" class="btn btn-neutral btn-icon">
+                                    <img src="https://developers.google.com/identity/images/btn_google_signin_dark_normal_web.png" style="margin-left: 3em;">
+                                </a> --}}
                             </div>
                         </div>
                         <div class="card-body px-lg-5 py-lg-5">
