@@ -17,9 +17,7 @@ class SuperAdminProfileController extends Controller
     public function index()
     {
         $Super = User::get();
-        // dd($Super);
         return view('SuperAdmin.profile',compact('Super'));
-        // return 'malesh';
     }
 
     /**
@@ -41,18 +39,16 @@ class SuperAdminProfileController extends Controller
     public function store(Request $request)
     {
         $SuperStore  = new User;
-                // dd($SuperStore);
-        
-        if ($request->hasfile('image')) {
-            $file = $request->file('image');
-            $extension = $file->getClientOriginalExtension();
-            $filename = time() . '.' . $extension;
-            $file->move('uploads/slider/', $filename);
-            $SuperStore->image = $filename;
-        } else {
-            return $request;
-            $SuperStore->image = '';
-        }
+                if ($request->hasfile('image')) {
+                    $file = $request->file('image');
+                    $extension = $file->getClientOriginalExtension(); 
+                    $filename = time() . '.' . $extension;
+                    $file->move('uploads/appsetting/', $filename);
+                     $SuperStore->image = $filename;
+                } else {
+                    return $request;
+                    $SuperStore->image = '';
+                }
         $SuperStore->email =$request->email;
 
         $SuperStore->name =$request->name;
@@ -92,16 +88,9 @@ class SuperAdminProfileController extends Controller
     public function edit($id)
     {
         $SuperEdit = User::find($id);
-        // dd($SuperEdit);
         if ($SuperEdit) 
-            
         $Super = User::get();
-        // dd($Super);
         return view('SuperAdmin.profile',compact('SuperEdit','Super'));
-        // return 'super profile';
-        // return view('SuperAdmin.profile');
-        // return view('SuperAdmin.profile');
-    
     }
 
     /**

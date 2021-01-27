@@ -384,7 +384,7 @@
                         <div class="row justify-content-center">
                             <div class="col-lg-3 order-lg-2">
                                 <div class="card-profile-image">
-                                        <img src="../assets/img/theme/team-4.jpg" class="rounded-circle" id="myImg">
+                                        <img src="../assets/img/theme/team-4.jpg" class="rounded-circle" id="profile-img-tag">
                                     <div id="myModal" class="modal">
                                         <span class="close">×</span>
                                         <img class="modal-content" id="img01">
@@ -483,10 +483,9 @@
                                         <div class="col-lg-6">
                                             <div class="form-group">
                                                 <label class="form-control-label" for="input-last-name">Image</label>
-                                                <input type="file" id="input-last-name" class="form-control" name="image" placeholder="" value="{{ Auth::user()->image }}">
+                                                <input type="file"  class="form-control" name="image" id="profile-img" placeholder="" value="{{ Auth::user()->image }}">
                                             </div>
-                                        </div>
-                                        <div class="col-lg-6">
+                                        <div class="col-lg-15">
                                             <div class="form-group">
                                                 <label class="form-control-label" for="input-last-name">password</label>
                                                 <input type="password" id="input-last-name" class="form-control" name="password" placeholder="" value="{{ Auth::user()->password }}">
@@ -523,7 +522,7 @@
                                         <div class="col-lg-4">
                                             <div class="form-group">
                                                 <label class="form-control-label" for="input-country">Postal code</label>
-                                                <input type="number" id="input-postal-code" name="postalcode" class="form-control"  value="{{ Auth::user()->postalcode}}">
+                                                <input type="text" id="input-postal-code" name="postalcode" class="form-control"  value="{{ Auth::user()->postalcode}}">
                                             </div>
                                         </div>
                                     </div>
@@ -583,8 +582,21 @@
     <script src="../assets/vendor/jquery-scroll-lock/dist/jquery-scrollLock.min.js"></script>
     <!-- Argon JS -->
     <script src="../assets/js/argon.js?v=1.2.0"></script>
-    <script>
-
+   
+<script type="text/javascript">
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            
+            reader.onload = function (e) {
+                $('#profile-img-tag').attr('src', e.target.result);
+            }
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+    $("#profile-img").change(function(){
+        readURL(this);
+    });
 </script>
 </body>
 
